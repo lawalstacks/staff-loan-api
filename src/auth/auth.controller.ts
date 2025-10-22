@@ -1,8 +1,14 @@
+<<<<<<< HEAD
 import { Controller, Post, Body, HttpCode, HttpStatus, UnauthorizedException, UseGuards, Request } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { LoginUserDto } from './dto/login-user.dto';
 import { JwtAuthGuard } from './guards/jwt-auth/jwt-auth.guard';
 
+=======
+import { Controller, Post, Body, HttpCode, HttpStatus, UnauthorizedException } from '@nestjs/common';
+import { AuthService } from './auth.service';
+import { LoginUserDto } from './dto/login-user.dto';
+>>>>>>> 47f22bfe05020362946f746e52db9a3ba1f4c567
 
 @Controller('auth')
 export class AuthController {
@@ -19,6 +25,7 @@ export class AuthController {
 
         return this.authService.login(user);
     }
+<<<<<<< HEAD
 
     @Post('logout')
     @UseGuards(JwtAuthGuard)
@@ -28,4 +35,6 @@ export class AuthController {
             message: `${req.user.email} logged out successfully.`,
         };
     }
+=======
+>>>>>>> 47f22bfe05020362946f746e52db9a3ba1f4c567
 }
