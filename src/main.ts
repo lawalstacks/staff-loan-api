@@ -7,7 +7,11 @@ import { HttpExceptionFilter } from './common/filters/http-exception/http-except
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  app.enableCors();
+  app.enableCors({
+    origin: 'https://staff-loan.edgeone.app',
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    credentials: true,
+  });
   app.use(helmet());
   app.use(morgan('dev'));
 
