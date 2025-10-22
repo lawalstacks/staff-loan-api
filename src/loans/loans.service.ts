@@ -30,4 +30,28 @@ export class LoansService {
         }
         return filteredLoans;
     }
+
+    /**
+   * Fetches all loans for a specific user by their email.
+   * Applies role-based visibility.
+   * Returns data in the format { loans: [...] }
+   */
+    async findByUserEmail(email: string, role: string) {
+        const userLoans = this.loans.filter(
+            (loan) => loan.applicant.email === email,
+        );
+
+        let results = userLoans;
+
+        if (role === 'staff') {
+            results = userLoans.map((loan) => {
+                const loanCopy = JSON.parse(JSON.stringify(loan));
+                if (loanCopy.applicant && 'totalLoan' in loanCopy.applicant) {
+                    delete loanCopy.applicant.totalLoan;
+                }
+                return loanCopy;
+            });
+        }
+        return { loans: results };
+    }
 }
