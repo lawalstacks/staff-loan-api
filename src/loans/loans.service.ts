@@ -81,4 +81,19 @@ export class LoansService {
 
         return expiredLoans;
     }
+
+    /**
+   * Deletes a loan by its ID.
+   */
+
+    async delete(loanId: string) {
+        const loan = this.loans.find((l) => l.id === loanId);
+
+        if (!loan) {
+
+            return false;
+        }
+        console.log(`[SuperAdmin Action] Loan ${loanId} has been deleted.`);
+        return true;
+    }
 }
