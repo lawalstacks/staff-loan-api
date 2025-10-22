@@ -6,11 +6,18 @@ export class LoansService {
     private readonly loans = loansData;
 
     /**
-   * Fetches all loans with role-based visibility.
+   * Fetches all loans or filer by status with role-based visibility .
    * - 'admin'/'superadmin' see everything.
    * - 'staff' cannot see applicant.totalLoan.
    */
-    async findAll(role: string) {
+    async findAll(role: string, status?: string) {
+        let filteredLoans = this.loans;
+
+        if (status) {
+            filteredLoans = this.loans.filter(
+                (loan) => loan.status === status,
+            );
+        }
 
         if (role === 'staff') {
             return this.loans.map((loan) => {
@@ -21,6 +28,6 @@ export class LoansService {
                 return loanCopy;
             });
         }
-        return this.loans;
+        return filteredLoans;
     }
 }
