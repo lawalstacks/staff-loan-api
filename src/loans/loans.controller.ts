@@ -17,6 +17,12 @@ export class LoansController {
         return this.loansService.findAll(user.role, query.status);
     }
 
+    @Get('expired')
+    async findExpired(@Request() req: any) {
+        const requestingUserRole = req.user.role;
+        return this.loansService.findExpired(requestingUserRole);
+    }
+
     @Get(':userEmail/get')
     async findByUser(
         @Request() req: any,

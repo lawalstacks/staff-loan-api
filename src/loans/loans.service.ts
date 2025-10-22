@@ -54,4 +54,31 @@ export class LoansService {
         }
         return { loans: results };
     }
+
+
+    /**
+   * Fetches all loans where the maturityDate is in the past.
+   * Applies role-based visibility.
+   */
+    async findExpired(role: string) {
+        const now = new Date();
+
+        const expiredLoans = this.loans.filter((loan) => {
+
+            const maturityDate = new Date(loan.maturityDate);
+            return maturityDate < now;
+        });
+
+        if (role === 'staff') {
+            return expiredLoans.map((loan) => {
+                const loanCopy = JSON.parse(JSON.stringify(loan));
+                if (loanCopy.applicant && 'totalLoan' in loanCopy.applicant) {
+                    delete loanCopy.applicant.totalLoan;
+                }
+                return loanCopy;
+            });
+        }
+
+        return expiredLoans;
+    }
 }
