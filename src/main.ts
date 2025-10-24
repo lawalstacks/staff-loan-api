@@ -5,13 +5,22 @@ import morgan from 'morgan';
 import helmet from 'helmet';
 import { HttpExceptionFilter } from './common/filters/http-exception/http-exception.filter';
 
+
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+
   app.enableCors({
-    origin: 'https://staff-loan.edgeone.app',
-    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    origin: [
+      'https://staff-loan.edgeone.app',
+      'http://localhost:5173'
+    ],
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
     credentials: true,
+    allowedHeaders: 'Content-Type, Authorization',
+    preflightContinue: false,
+    optionsSuccessStatus: 204,
   });
+
   app.use(helmet());
   app.use(morgan('dev'));
 
