@@ -11,7 +11,7 @@ async function bootstrap() {
 
   app.enableCors({
     origin: [
-      'https://staff-loan-ui.miiglu.app/login',
+      'https://staff-loan-ui.miiglu.app',
       'http://localhost:5173'
     ],
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
