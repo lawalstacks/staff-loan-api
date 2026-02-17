@@ -47,7 +47,7 @@ export class LoansController {
     }
 
     @Delete(':loanId/delete')
-    @Roles('superadmin')
+    @Roles('superAdmin')
     @HttpCode(HttpStatus.NO_CONTENT)
     async deleteLoan(
         @Request() req: any,
